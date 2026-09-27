@@ -1,859 +1,682 @@
-# Tailwind CSS Interview Questions
+# Zustand Interview Questions
 
 > **Level:** Fresher / Junior Developer
-> **Focus:** Important Tailwind CSS concepts + commonly asked interview questions
-> **Prerequisite:** HTML + CSS
+> **Focus:** Important Zustand concepts + commonly asked interview questions
+> **Prerequisite:** React + JavaScript
 
 ---
 
-# 1. What is Tailwind CSS?
+# 1. What is Zustand?
 
-Tailwind CSS is a **utility-first CSS framework**.
+Zustand is a **small state management library for React**.
 
-Instead of writing custom CSS for every component, you use predefined utility classes directly in your HTML or JSX.
+It provides a simple way to create and manage global state without requiring a large amount of boilerplate.
 
 Example:
 
+```js
+import { create } from "zustand";
+
+const useCounterStore = create((set) => ({
+  count: 0,
+
+  increment: () =>
+    set((state) => ({
+      count: state.count + 1
+    }))
+}));
+```
+
+---
+
+# 2. Why is Zustand used?
+
+Zustand is useful for managing shared state such as:
+
+* Authentication
+* Shopping cart
+* User preferences
+* Theme
+* Notifications
+* Global UI state
+
+It is popular because the API is small and straightforward.
+
+---
+
+# 3. How do you create a Zustand store?
+
+Use the `create()` function.
+
+```js
+import { create } from "zustand";
+
+const useStore = create((set) => ({
+  count: 0,
+
+  increment: () => {
+    set((state) => ({
+      count: state.count + 1
+    }));
+  }
+}));
+```
+
+The returned value is a React hook.
+
+---
+
+# 4. How do you access Zustand state?
+
+Call the store hook inside a React component.
+
 ```jsx
-<button className="bg-blue-500 text-white px-4 py-2 rounded">
-  Login
-</button>
-```
+function Counter() {
+  const count = useStore((state) => state.count);
 
----
-
-# 2. What does utility-first CSS mean?
-
-Utility-first CSS means using small classes that perform individual styling tasks.
-
-Examples:
-
-```text
-p-4       → padding
-mt-2      → margin-top
-text-lg    → font size
-font-bold  → font weight
-flex       → display flex
-grid       → display grid
-rounded    → border radius
-```
-
-You combine these utilities to build the UI.
-
----
-
-# 3. Why use Tailwind CSS?
-
-Advantages include:
-
-* Fast UI development
-* Consistent design
-* Responsive utilities
-* Easy customization
-* Less custom CSS
-* Good developer experience
-* Easy integration with React
-* Utility classes can be composed directly in components
-
----
-
-# 4. Tailwind CSS vs traditional CSS
-
-### Traditional CSS
-
-```css
-.button {
-  background: blue;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 6px;
+  return <h1>{count}</h1>;
 }
 ```
 
-```jsx
-<button className="button">
-  Login
-</button>
-```
-
-### Tailwind
-
-```jsx
-<button className="bg-blue-500 text-white px-4 py-2 rounded">
-  Login
-</button>
-```
-
 ---
 
-# 5. What are utility classes?
-
-Utility classes represent individual CSS properties.
-
-Example:
-
-```jsx
-<div className="p-4 mt-2 text-center font-bold">
-  Hello
-</div>
-```
-
-Here:
-
-```text
-p-4          → padding
-mt-2         → margin-top
-text-center  → text alignment
-font-bold    → font weight
-```
-
----
-
-# 6. How do you add padding in Tailwind?
-
-Examples:
-
-```text
-p-4   → all sides
-px-4  → left + right
-py-4  → top + bottom
-pt-4  → top
-pb-4  → bottom
-pl-4  → left
-pr-4  → right
-```
-
-Example:
-
-```jsx
-<div className="px-6 py-4">
-  Content
-</div>
-```
-
----
-
-# 7. How do you add margin in Tailwind?
-
-Examples:
-
-```text
-m-4
-mx-4
-my-4
-mt-4
-mb-4
-ml-4
-mr-4
-```
-
-Example:
-
-```jsx
-<div className="mt-6 mb-4">
-  Content
-</div>
-```
-
----
-
-# 8. How do you use Flexbox in Tailwind?
-
-Use:
-
-```text
-flex
-```
-
-Example:
-
-```jsx
-<div className="flex">
-  <div>Item 1</div>
-  <div>Item 2</div>
-</div>
-```
-
-Common Flexbox utilities:
-
-```text
-flex
-flex-row
-flex-col
-justify-center
-justify-between
-items-center
-flex-wrap
-gap-4
-```
-
----
-
-# 9. How do you center an element using Tailwind?
-
-For a flex container:
-
-```jsx
-<div className="flex items-center justify-center">
-  <div>Centered</div>
-</div>
-```
-
-Meaning:
-
-```text
-items-center
-→ cross-axis alignment
-
-justify-center
-→ main-axis alignment
-```
-
----
-
-# 10. How do you use CSS Grid in Tailwind?
-
-Use:
-
-```text
-grid
-```
-
-Example:
-
-```jsx
-<div className="grid grid-cols-3 gap-4">
-  <div>1</div>
-  <div>2</div>
-  <div>3</div>
-</div>
-```
-
----
-
-# 11. How do you create responsive designs in Tailwind?
-
-Tailwind provides responsive prefixes.
-
-Common breakpoints include:
-
-```text
-sm:
-md:
-lg:
-xl:
-2xl:
-```
-
-Example:
-
-```jsx
-<div className="text-sm md:text-lg lg:text-2xl">
-  Responsive Text
-</div>
-```
-
-The styling changes based on the viewport size.
-
----
-
-# 12. Is Tailwind mobile-first?
-
-Yes.
-
-Tailwind's responsive system is **mobile-first**.
-
-Unprefixed utilities apply to the base/mobile layout.
-
-Example:
-
-```jsx
-<div className="text-sm md:text-lg">
-  Hello
-</div>
-```
-
-Meaning:
-
-```text
-Mobile → text-sm
-md and above → text-lg
-```
-
----
-
-# 13. How do you add background colours?
-
-Example:
-
-```jsx
-<div className="bg-blue-500">
-  Content
-</div>
-```
-
-Other examples:
-
-```text
-bg-red-500
-bg-green-500
-bg-yellow-500
-bg-gray-100
-bg-black
-bg-white
-```
-
----
-
-# 14. How do you change text colour?
-
-Use:
-
-```text
-text-{colour}-{shade}
-```
-
-Example:
-
-```jsx
-<p className="text-gray-700">
-  Hello
-</p>
-```
-
----
-
-# 15. How do you control font size?
-
-Common utilities:
-
-```text
-text-xs
-text-sm
-text-base
-text-lg
-text-xl
-text-2xl
-text-3xl
-text-4xl
-```
-
-Example:
-
-```jsx
-<h1 className="text-3xl font-bold">
-  Welcome
-</h1>
-```
-
----
-
-# 16. How do you control font weight?
-
-Examples:
-
-```text
-font-thin
-font-normal
-font-medium
-font-semibold
-font-bold
-font-extrabold
-```
-
-Example:
-
-```jsx
-<h1 className="font-bold">
-  Heading
-</h1>
-```
-
----
-
-# 17. How do you add border and border radius?
-
-Border:
-
-```text
-border
-border-2
-border-gray-300
-```
-
-Radius:
-
-```text
-rounded
-rounded-md
-rounded-lg
-rounded-xl
-rounded-full
-```
-
-Example:
-
-```jsx
-<button className="border border-gray-300 rounded-lg">
-  Submit
-</button>
-```
-
----
-
-# 18. How do you add shadows?
-
-Examples:
-
-```text
-shadow-sm
-shadow
-shadow-md
-shadow-lg
-shadow-xl
-```
-
-Example:
-
-```jsx
-<div className="shadow-lg rounded-lg">
-  Card
-</div>
-```
-
----
-
-# 19. How do you control width and height?
-
-Examples:
-
-```text
-w-full
-w-1/2
-w-screen
-h-full
-h-screen
-```
-
-Example:
-
-```jsx
-<div className="w-full h-screen">
-  Content
-</div>
-```
-
-Tailwind also supports arbitrary values when required:
-
-```jsx
-<div className="w-[350px]">
-  Content
-</div>
-```
-
----
-
-# 20. What are arbitrary values?
-
-Arbitrary values allow you to provide a custom value directly inside brackets.
-
-Example:
-
-```jsx
-<div className="w-[350px]">
-  Content
-</div>
-```
-
-Another:
-
-```jsx
-<div className="bg-[#1da1f2]">
-  Content
-</div>
-```
-
-### Important Point
-
-Use arbitrary values when the required value does not fit the normal design scale. Avoid using them everywhere because they can reduce consistency.
-
----
-
-# 21. How do you add hover styles?
-
-Use the `hover:` variant.
-
-```jsx
-<button className="bg-blue-500 hover:bg-blue-700">
-  Submit
-</button>
-```
-
-Other variants include:
-
-```text
-focus:
-active:
-disabled:
-visited:
-```
-
----
-
-# 22. How do you handle dark mode?
-
-Tailwind supports dark mode utilities.
-
-Example:
-
-```jsx
-<div className="bg-white text-black dark:bg-gray-900 dark:text-white">
-  Content
-</div>
-```
-
-The exact dark-mode configuration depends on the Tailwind version and project setup.
-
----
-
-# 23. How do you hide/show elements responsively?
-
-Example:
-
-```jsx
-<div className="hidden md:block">
-  Desktop Content
-</div>
-```
-
-Meaning:
-
-```text
-Mobile → hidden
-md and above → block
-```
-
-Another example:
-
-```jsx
-<div className="block md:hidden">
-  Mobile Content
-</div>
-```
-
----
-
-# 24. What are Tailwind variants?
-
-Variants apply utilities under a specific condition.
-
-Examples:
-
-```text
-hover:
-focus:
-active:
-disabled:
-dark:
-sm:
-md:
-lg:
-```
-
-Example:
-
-```jsx
-<button className="bg-blue-500 hover:bg-blue-700 md:px-8">
-  Button
-</button>
-```
-
----
-
-# 25. How do you add transitions?
-
-Example:
-
-```jsx
-<button className="transition duration-300 hover:scale-105">
-  Hover Me
-</button>
-```
-
-Common utilities:
-
-```text
-transition
-duration-300
-ease-in
-ease-out
-delay-100
-```
-
----
-
-# 26. How do you add animations?
-
-Tailwind provides animation utilities such as:
-
-```text
-animate-spin
-animate-ping
-animate-pulse
-animate-bounce
-```
-
-Example:
-
-```jsx
-<div className="animate-spin">
-  Loading
-</div>
-```
-
-Custom animations can also be defined through the project's Tailwind configuration/setup.
-
----
-
-# 27. How do you create a responsive card using Tailwind?
-
-Example:
-
-```jsx
-<div className="w-full md:w-1/2 lg:w-1/3 p-4">
-  <div className="rounded-lg shadow-md p-6">
-    <h2 className="text-xl font-bold">
-      Product
-    </h2>
-
-    <p className="text-gray-600">
-      Product description
-    </p>
-  </div>
-</div>
-```
-
-This demonstrates:
-
-* Responsive width
-* Padding
-* Border radius
-* Shadow
-* Typography
-
----
-
-# 28. What is `@apply`?
-
-`@apply` allows Tailwind utility classes to be composed inside CSS.
-
-Example:
-
-```css
-.btn {
-  @apply px-4 py-2 rounded-lg font-semibold;
-}
+# 5. How do you update Zustand state?
+
+Use the `set` function.
+
+```js
+const useStore = create((set) => ({
+  count: 0,
+
+  increment: () =>
+    set((state) => ({
+      count: state.count + 1
+    }))
+}));
 ```
 
 Then:
 
 ```jsx
-<button className="btn">
-  Submit
-</button>
+const increment = useStore(
+  (state) => state.increment
+);
+
+increment();
 ```
-
-### Important Point
-
-`@apply` can be useful for repeated patterns, but excessive abstraction can reduce one of Tailwind's main advantages: composing utilities directly where needed.
 
 ---
 
-# 29. How do you customise Tailwind?
+# 6. What is the `set` function?
 
-Tailwind can be customised through the project's configuration/theme setup depending on the Tailwind version.
+`set` updates the Zustand store.
 
-Common customisation areas include:
-
-```text
-Colours
-Fonts
-Spacing
-Breakpoints
-Shadows
-Border radius
-Animations
-```
-
-Example concept:
+Example:
 
 ```js
-theme: {
-  extend: {
-    colors: {
-      primary: "#2563eb"
-    }
+set({
+  count: 10
+});
+```
+
+Or based on the previous state:
+
+```js
+set((state) => ({
+  count: state.count + 1
+}));
+```
+
+The second approach is useful when the new state depends on the previous state.
+
+---
+
+# 7. What is the `get` function?
+
+`get` allows you to access the current Zustand state inside the store.
+
+Example:
+
+```js
+const useStore = create((set, get) => ({
+  count: 0,
+
+  doubleCount: () => {
+    const count = get().count;
+
+    set({
+      count: count * 2
+    });
   }
-}
+}));
 ```
 
 ---
 
-# 30. What is the advantage of Tailwind's design system?
-
-Tailwind provides a consistent set of utilities for:
-
-* Spacing
-* Colours
-* Typography
-* Breakpoints
-* Shadows
-* Borders
-* Layout
-
-Instead of inventing different values throughout the application, developers can use a consistent design scale.
-
----
-
-# 31. How does Tailwind help with responsive design?
-
-Instead of writing many media queries manually:
-
-```css
-@media (...) {
-  ...
-}
-```
-
-you can use responsive variants directly:
-
-```jsx
-<div className="text-sm md:text-lg lg:text-2xl">
-  Responsive content
-</div>
-```
-
-This makes responsive behaviour visible directly in the component.
-
----
-
-# 32. Tailwind CSS vs Bootstrap
-
-| Tailwind CSS                   | Bootstrap                          |
-| ------------------------------ | ---------------------------------- |
-| Utility-first                  | Component-oriented framework       |
-| Highly customisable            | Comes with predefined components   |
-| Build UI using utility classes | Uses ready-made components/classes |
-| Less opinionated visual style  | More predefined styling            |
-| Excellent for custom designs   | Fast for standard UI patterns      |
-
-Example Tailwind:
-
-```jsx
-<button className="px-4 py-2 rounded bg-blue-500 text-white">
-  Login
-</button>
-```
-
----
-
-# 33. Tailwind CSS vs CSS Modules
-
-| Tailwind                | CSS Modules                   |
-| ----------------------- | ----------------------------- |
-| Utility classes         | CSS classes                   |
-| Styling directly in JSX | Styling in separate CSS files |
-| Fast composition        | More traditional CSS approach |
-| Design system utilities | Full CSS control              |
-| Minimal custom CSS      | Custom CSS is expected        |
-
----
-
-# 34. Does Tailwind replace CSS?
+# 8. Does Zustand require a Provider?
 
 No.
 
-Tailwind is built on CSS.
+Unlike Redux, Zustand does not normally require wrapping the React application with a Provider.
 
-Understanding CSS fundamentals is still important.
+Redux commonly uses:
 
-You should understand:
-
-```text
-Box Model
-Flexbox
-Grid
-Positioning
-Specificity
-Responsive Design
-Media Queries
-Pseudo-classes
+```jsx
+<Provider store={store}>
+  <App />
+</Provider>
 ```
 
-Tailwind provides utilities that make applying these concepts faster.
+Zustand can simply be used through its store hook:
+
+```jsx
+const count = useStore((state) => state.count);
+```
 
 ---
 
-# 35. Tailwind CSS Interview Revision Checklist
+# 9. What is a Zustand selector?
 
-* [ ] What is Tailwind CSS?
-* [ ] Utility-first CSS
-* [ ] Tailwind vs traditional CSS
-* [ ] Utility classes
-* [ ] Padding
-* [ ] Margin
-* [ ] Flexbox
-* [ ] Grid
-* [ ] Responsive design
-* [ ] Mobile-first approach
-* [ ] Breakpoints
-* [ ] Colours
-* [ ] Typography
-* [ ] Font weight
-* [ ] Borders
-* [ ] Border radius
-* [ ] Shadows
-* [ ] Width/height
-* [ ] Arbitrary values
-* [ ] Hover/focus/active
-* [ ] Dark mode
-* [ ] Responsive visibility
-* [ ] Variants
-* [ ] Transitions
-* [ ] Animations
-* [ ] `@apply`
-* [ ] Customisation
-* [ ] Design system
-* [ ] Tailwind vs Bootstrap
-* [ ] Tailwind vs CSS Modules
-* [ ] Tailwind vs CSS
+A selector chooses a specific part of the store.
+
+```js
+const count = useStore(
+  (state) => state.count
+);
+```
+
+Instead of reading the entire store:
+
+```js
+const store = useStore();
+```
+
+you select only what the component needs.
+
+### Important Point
+
+Selectors can help reduce unnecessary component re-renders.
 
 ---
 
-# Final Tailwind CSS Revision Flow
+# 10. Why should we use selectors?
 
-```text
-HTML
- ↓
-Tailwind Utility Classes
- ↓
-Layout
- ↓
-Spacing
- ↓
-Typography
- ↓
-Colours
- ↓
-Responsive Design
- ↓
-Variants
- ↓
-Dark Mode
- ↓
-Components
- ↓
-Consistent UI
+Suppose the store contains:
+
+```js
+{
+  user,
+  cart,
+  theme,
+  notifications
+}
 ```
 
-> **Main Interview Goal:** Be able to explain utility-first CSS, responsive/mobile-first design, Flexbox/Grid utilities, variants, dark mode, arbitrary values, `@apply`, customisation, and Tailwind vs CSS/Bootstrap.
+A component that only needs `cart` can select:
+
+```js
+const cart = useStore(
+  (state) => state.cart
+);
+```
+
+This keeps the component focused on the state it actually needs.
+
+---
+
+# 11. Zustand vs React useState
+
+| `useState`            | Zustand                |
+| --------------------- | ---------------------- |
+| Local component state | Shared/global state    |
+| Built into React      | External library       |
+| Simple UI state       | Cross-component state  |
+| No external setup     | Requires Zustand       |
+| Good for local values | Good for shared values |
+
+Example:
+
+```js
+const [isOpen, setIsOpen] = useState(false);
+```
+
+A modal's local open/close state usually does not need Zustand.
+
+---
+
+# 12. Zustand vs Redux Toolkit
+
+| Zustand                               | Redux Toolkit               |
+| ------------------------------------- | --------------------------- |
+| Very small API                        | Larger structured ecosystem |
+| Minimal boilerplate                   | More structured             |
+| No Provider required for normal usage | Provider commonly used      |
+| Simple store setup                    | `configureStore` + slices   |
+| Easy to start                         | More formal architecture    |
+| Selectors built into usage            | `useSelector`               |
+| Middleware available                  | Middleware ecosystem        |
+
+### Interview Point
+
+Neither should automatically be considered "better." The choice depends on application requirements and team architecture.
+
+---
+
+# 13. How do you create multiple state values?
+
+```js
+const useStore = create((set) => ({
+  name: "Veera",
+  age: 21,
+  isLoggedIn: false,
+
+  login: () =>
+    set({
+      isLoggedIn: true
+    })
+}));
+```
+
+---
+
+# 14. How do you update an object in Zustand?
+
+Example:
+
+```js
+const useStore = create((set) => ({
+  user: {
+    name: "Veera",
+    age: 21
+  },
+
+  updateName: (name) =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        name
+      }
+    }))
+}));
+```
+
+The spread operator preserves the other properties.
+
+---
+
+# 15. How do you update an array in Zustand?
+
+Example:
+
+```js
+const useStore = create((set) => ({
+  todos: [],
+
+  addTodo: (todo) =>
+    set((state) => ({
+      todos: [...state.todos, todo]
+    }))
+}));
+```
+
+Remove an item:
+
+```js
+removeTodo: (id) =>
+  set((state) => ({
+    todos: state.todos.filter(
+      (todo) => todo.id !== id
+    )
+  }))
+```
+
+---
+
+# 16. Can Zustand handle asynchronous operations?
+
+Yes.
+
+Example:
+
+```js
+const useStore = create((set) => ({
+  users: [],
+  loading: false,
+
+  fetchUsers: async () => {
+    set({ loading: true });
+
+    const response = await fetch("/api/users");
+    const users = await response.json();
+
+    set({
+      users,
+      loading: false
+    });
+  }
+}));
+```
+
+---
+
+# 17. How do you handle loading and errors?
+
+A common pattern is:
+
+```js
+const useStore = create((set) => ({
+  data: [],
+  loading: false,
+  error: null,
+
+  fetchData: async () => {
+    try {
+      set({
+        loading: true,
+        error: null
+      });
+
+      const response = await fetch("/api/data");
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const data = await response.json();
+
+      set({
+        data,
+        loading: false
+      });
+    } catch (error) {
+      set({
+        error: error.message,
+        loading: false
+      });
+    }
+  }
+}));
+```
+
+---
+
+# 18. What is Zustand middleware?
+
+Zustand supports middleware that can extend store functionality.
+
+Common middleware includes:
+
+```text
+persist
+devtools
+immer
+```
+
+---
+
+# 19. What is `persist` middleware?
+
+`persist` allows Zustand state to be persisted, commonly in browser storage.
+
+Example:
+
+```js
+import { persist } from "zustand/middleware";
+
+const useStore = create(
+  persist(
+    (set) => ({
+      theme: "dark",
+
+      setTheme: (theme) =>
+        set({ theme })
+    }),
+    {
+      name: "app-storage"
+    }
+  )
+);
+```
+
+The state can survive page refreshes.
+
+---
+
+# 20. What is Zustand DevTools middleware?
+
+DevTools middleware can integrate the store with Redux DevTools for debugging.
+
+Example:
+
+```js
+import { devtools } from "zustand/middleware";
+
+const useStore = create(
+  devtools((set) => ({
+    count: 0,
+
+    increment: () =>
+      set((state) => ({
+        count: state.count + 1
+      }))
+  }))
+);
+```
+
+---
+
+# 21. What is Immer middleware in Zustand?
+
+Immer can simplify immutable updates for complex nested state.
+
+Conceptually:
+
+```js
+set((state) => {
+  state.user.name = "Veera";
+});
+```
+
+Immer handles the immutable update process.
+
+It is particularly useful when state has deeply nested structures.
+
+---
+
+# 22. Can Zustand store functions?
+
+Yes.
+
+State and actions can be stored together.
+
+```js
+const useStore = create((set) => ({
+  count: 0,
+
+  increment: () =>
+    set((state) => ({
+      count: state.count + 1
+    }))
+}));
+```
+
+This is a common Zustand pattern.
+
+---
+
+# 23. Can Zustand have multiple stores?
+
+Yes.
+
+For example:
+
+```text
+stores/
+│
+├── authStore.js
+├── cartStore.js
+├── themeStore.js
+└── productStore.js
+```
+
+You can create separate stores based on application requirements.
+
+---
+
+# 24. What is a good Zustand folder structure?
+
+Example:
+
+```text
+src/
+│
+├── stores/
+│   ├── authStore.js
+│   ├── cartStore.js
+│   └── productStore.js
+│
+├── components/
+├── pages/
+├── services/
+└── App.jsx
+```
+
+For larger applications, stores can also be organized by feature.
+
+---
+
+# 25. How does Zustand trigger React re-renders?
+
+A component subscribes to selected state through the store hook.
+
+Example:
+
+```js
+const count = useStore(
+  (state) => state.count
+);
+```
+
+When the selected state changes, the component can re-render.
+
+Using selectors helps components subscribe to only the state they need.
+
+---
+
+# 26. Is Zustand immutable?
+
+Zustand supports immutable state updates.
+
+You normally create new objects/arrays when updating state:
+
+```js
+set((state) => ({
+  user: {
+    ...state.user,
+    name: "Veera"
+  }
+}));
+```
+
+Immer middleware can simplify immutable updates for complex state.
+
+---
+
+# 27. Does Zustand work outside React?
+
+Zustand stores are not limited to React component rendering.
+
+A store can expose access to its state and actions outside components as well.
+
+Example:
+
+```js
+const currentState = useStore.getState();
+```
+
+This can be useful in certain application services or event handlers.
+
+---
+
+# 28. When should you use Zustand?
+
+Good use cases:
+
+* Authentication state
+* Shopping cart
+* Global UI state
+* Theme
+* User preferences
+* Shared application state
+* Small-to-medium React applications
+
+Avoid using global state for every value.
+
+---
+
+# 29. What should not necessarily be stored in Zustand?
+
+Examples:
+
+```text
+Input value used by one component
+Modal state used by one component
+Temporary hover state
+Simple local UI state
+```
+
+These can often remain with:
+
+```js
+useState()
+```
+
+---
+
+# 30. Zustand Interview Revision Checklist
+
+* [ ] What is Zustand?
+* [ ] Why use Zustand?
+* [ ] `create()`
+* [ ] `set()`
+* [ ] `get()`
+* [ ] Store
+* [ ] Actions
+* [ ] Selectors
+* [ ] Provider requirement
+* [ ] Zustand vs useState
+* [ ] Zustand vs Redux Toolkit
+* [ ] Async operations
+* [ ] Loading/error handling
+* [ ] Middleware
+* [ ] `persist`
+* [ ] `devtools`
+* [ ] Immer
+* [ ] Multiple stores
+* [ ] Re-render behaviour
+* [ ] Immutable updates
+* [ ] Zustand outside React
+* [ ] Folder structure
+* [ ] When to use Zustand
+
+---
+
+# Final Zustand Flow
+
+```text
+React Component
+      ↓
+useStore(selector)
+      ↓
+Zustand Store
+      ↓
+Action
+      ↓
+set()
+      ↓
+State Updated
+      ↓
+Subscribed Components Re-render
+```
+
+> **Main Interview Goal:** Be able to explain Zustand's `create`, `set`, `get`, selectors, async actions, middleware, persistence, and Zustand vs Redux Toolkit.
